@@ -1,10 +1,7 @@
 import * as assert from 'assert';
-import * as vscode from 'vscode';
 import { convertCondition } from '../convertCondition';
 
 suite('Extension Test Suite', () => {
-    vscode.window.showInformationMessage('Start all tests.');
-
     // Basa
     test('if basic', () => {
         assert.strictEqual(convertCondition('if x > 5:'), 'if (x > 5) {');
@@ -117,4 +114,3 @@ suite('Extension Test Suite', () => {
         assert.strictEqual(convertCondition('if (x > 5) {'), 'if (x > 5) {');
     });
 });
-

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { convertCondition } from './convertCondition';
 
 export function activate(context: vscode.ExtensionContext) {
     const disposable = vscode.commands.registerCommand('py-cond-to-cpp.convert', () => {
@@ -15,12 +16,12 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (newText === null) {
             vscode.window.showErrorMessage(
-                'if/while не найдено в текущей строке'
+                'if/while нету'
             );
             return;
         }
         if (newText === lineText) {
-            vscode.window.showInformationMessage('Условие уже в порядке');
+            vscode.window.showInformationMessage('Всё уже в порядке');
             return;
         }
 
@@ -30,12 +31,6 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     context.subscriptions.push(disposable);
-}
-
-// Null - если не найден if/while
-// Иначе конвертированную строку
-function convertCondition(lineText: string): string | null {
-    return null;
 }
 
 export function deactivate() { }
