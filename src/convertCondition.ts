@@ -1,4 +1,16 @@
 
+function replaceAllIncludes(base: string, from: string, to: string): string {
+    let i: number = base.indexOf(from);
+    while (i !== -1) {
+        if (base[i - 1] == ' ' && base[i + from.length] == ' ') {
+            base = base.replace(from, to);
+        }
+        i = base.indexOf(from, i + from.length);
+    }
+
+    return base;
+}
+
 // Null - если не найден if/while
 // Иначе конвертированную строку
 export function convertCondition(lineText: string): string | null {
@@ -70,8 +82,11 @@ export function convertCondition(lineText: string): string | null {
     }
 
     if (counter_parenthesis !== 0) {
+        if (result[result.length - 1] === ' ') {
+            result = result.slice(0, result.length - 1);
+        }
         result += ') {'
     }
 
-    return result;
+    return replaceAllIncludes(replaceAllIncludes(result, "and", "&&"), "or", "||");
 }
